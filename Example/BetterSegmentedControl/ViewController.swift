@@ -60,7 +60,8 @@ class ViewController: UIViewController {
                                            selectedIconTintColor: UIColor(red: 0.16, green: 0.64, blue: 0.94, alpha: 1.00)),
             options: [.cornerRadius(15.0),
                       .backgroundColor(UIColor(red: 0.16, green: 0.64, blue: 0.94, alpha: 1.00)),
-                      .indicatorViewBackgroundColor(.white)])
+                      .indicatorViewBackgroundColor(.white)],
+                      .segmentPadding(16))
         iconsSegmentedControl.center.x = view.center.x
         view.addSubview(iconsSegmentedControl)
         

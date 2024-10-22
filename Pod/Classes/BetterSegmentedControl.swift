@@ -101,7 +101,7 @@ import UIKit
     @IBInspectable public var animationSpringDamping: CGFloat = 0.75
     
     /// When the control auto-sizes itself, this controls the additional side padding between the segments.
-    @IBInspectable public var segmentPadding: : CGFloat = 0 {
+    @IBInspectable public var segmentPadding: CGFloat = 0 {
          didSet { setNeedsLayout() }
     }
     
