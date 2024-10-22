@@ -101,12 +101,12 @@ import UIKit
     @IBInspectable public var animationSpringDamping: CGFloat = 0.75
     
     /// When the control auto-sizes itself, this controls the additional side padding between the segments.
-    @IBInspectable public var segmentPadding: CGFloat = 14.0 {
-        didSet {
-            invalidateIntrinsicContentSize()
-        }
+    @IBInspectable public var segmentPadding: : CGFloat = 0 {
+         didSet { setNeedsLayout() }
     }
     
+    private var totalPadding: CGFloat { return segmentPadding * CGFloat(normalSegmentViewCount - 1) }
+
     open override var intrinsicContentSize: CGSize {
         let segmentIntrinsicContentSizes = segments.map {
             $0.intrinsicContentSize ?? .zero
@@ -120,7 +120,7 @@ import UIKit
             return a.height < b.height
         })?.height ?? 0.0
         
-        let singleSegmentWidth = totalInsetSize + max(maxSegmentIntrinsicContentSizeWidth, Constants.minimumSegmentIntrinsicContentSizeWidth) + segmentPadding
+        let singleSegmentWidth = totalInsetSize + max(maxSegmentIntrinsicContentSizeWidth, Constants.minimumSegmentIntrinsicContentSizeWidth)
         
         let width = ceil(CGFloat(segments.count) * singleSegmentWidth)
         let height = ceil(max(maxSegmentIntrinsicContentSizeHeight + totalInsetSize, Constants.minimumIntrinsicContentSizeHeight))
@@ -339,7 +339,9 @@ import UIKit
                 animationDuration = value
             case let .animationSpringDamping(value):
                 animationSpringDamping = value
-            }
+            case let .segmentPadding(value):
+                segmentPadding = value
+           }
         }
     }
     
@@ -447,9 +449,10 @@ import UIKit
     }
     
     private func frameForElement(atIndex index: Int) -> CGRect {
-        let elementWidth = (width - totalInsetSize) / CGFloat(normalSegmentViewCount)
-        let x = CGFloat(isLayoutDirectionRightToLeft ? lastIndex - index : index) * elementWidth
-        
+        let elementWidth = (width - totalInsetSize - totalSpacings) / CGFloat(normalSegmentViewCount)
+        let space =  CGFloat(index) * segmentPadding
+        let x = CGFloat(isLayoutDirectionRightToLeft ? lastIndex - index : index) * elementWidth + space
+     
         return CGRect(x: x + indicatorViewInset,
                       y: indicatorViewInset,
                       width: elementWidth,

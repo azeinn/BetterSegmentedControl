@@ -30,6 +30,9 @@ public extension BetterSegmentedControl {
         /* Other */
         case backgroundColor(UIColor)
         case cornerRadius(CGFloat)
+
+        // Padding
+        case segmentPadding(CGFloat)
     }
 }
 
