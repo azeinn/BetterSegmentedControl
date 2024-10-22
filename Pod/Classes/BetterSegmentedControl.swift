@@ -449,7 +449,7 @@ import UIKit
     }
     
     private func frameForElement(atIndex index: Int) -> CGRect {
-        let elementWidth = (width - totalInsetSize - totalSpacings) / CGFloat(normalSegmentViewCount)
+        let elementWidth = (width - totalInsetSize - totalPadding) / CGFloat(normalSegmentViewCount)
         let space =  CGFloat(index) * segmentPadding
         let x = CGFloat(isLayoutDirectionRightToLeft ? lastIndex - index : index) * elementWidth + space
      
